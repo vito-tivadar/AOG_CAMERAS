@@ -31,7 +31,11 @@
             this.camera_divider = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tab_camera = new System.Windows.Forms.TabPage();
+            this.button_get_info = new System.Windows.Forms.Button();
+            this.button_cameras_start = new System.Windows.Forms.Button();
+            this.button_cameras_stop = new System.Windows.Forms.Button();
             this.tab_settings = new System.Windows.Forms.TabPage();
+            this.button_camera_settings = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tab_camera.SuspendLayout();
             this.SuspendLayout();
@@ -44,13 +48,12 @@
             this.camera_divider.ColumnCount = 2;
             this.camera_divider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.camera_divider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.camera_divider.Location = new System.Drawing.Point(6, 8);
+            this.camera_divider.Location = new System.Drawing.Point(3, 32);
             this.camera_divider.Name = "camera_divider";
-            this.camera_divider.Padding = new System.Windows.Forms.Padding(0, 35, 0, 0);
             this.camera_divider.RowCount = 2;
             this.camera_divider.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.camera_divider.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.camera_divider.Size = new System.Drawing.Size(1351, 673);
+            this.camera_divider.Size = new System.Drawing.Size(1354, 649);
             this.camera_divider.TabIndex = 0;
             // 
             // tabControl
@@ -75,6 +78,10 @@
             // tab_camera
             // 
             this.tab_camera.AllowDrop = true;
+            this.tab_camera.Controls.Add(this.button_camera_settings);
+            this.tab_camera.Controls.Add(this.button_get_info);
+            this.tab_camera.Controls.Add(this.button_cameras_start);
+            this.tab_camera.Controls.Add(this.button_cameras_stop);
             this.tab_camera.Controls.Add(this.camera_divider);
             this.tab_camera.Location = new System.Drawing.Point(24, 4);
             this.tab_camera.Name = "tab_camera";
@@ -83,6 +90,36 @@
             this.tab_camera.TabIndex = 0;
             this.tab_camera.Text = "Camera Stream";
             this.tab_camera.UseVisualStyleBackColor = true;
+            // 
+            // button_get_info
+            // 
+            this.button_get_info.Location = new System.Drawing.Point(273, 3);
+            this.button_get_info.Name = "button_get_info";
+            this.button_get_info.Size = new System.Drawing.Size(128, 23);
+            this.button_get_info.TabIndex = 3;
+            this.button_get_info.Text = "Get Camera Info";
+            this.button_get_info.UseVisualStyleBackColor = true;
+            this.button_get_info.Click += new System.EventHandler(this.button_get_info_Click);
+            // 
+            // button_cameras_start
+            // 
+            this.button_cameras_start.Location = new System.Drawing.Point(139, 3);
+            this.button_cameras_start.Name = "button_cameras_start";
+            this.button_cameras_start.Size = new System.Drawing.Size(128, 23);
+            this.button_cameras_start.TabIndex = 2;
+            this.button_cameras_start.Text = "Start Cameras";
+            this.button_cameras_start.UseVisualStyleBackColor = true;
+            this.button_cameras_start.Click += new System.EventHandler(this.button_cameras_start_Click);
+            // 
+            // button_cameras_stop
+            // 
+            this.button_cameras_stop.Location = new System.Drawing.Point(6, 3);
+            this.button_cameras_stop.Name = "button_cameras_stop";
+            this.button_cameras_stop.Size = new System.Drawing.Size(128, 23);
+            this.button_cameras_stop.TabIndex = 1;
+            this.button_cameras_stop.Text = "Stop Cameras";
+            this.button_cameras_stop.UseVisualStyleBackColor = true;
+            this.button_cameras_stop.Click += new System.EventHandler(this.button_cameras_stop_Click);
             // 
             // tab_settings
             // 
@@ -93,6 +130,17 @@
             this.tab_settings.TabIndex = 1;
             this.tab_settings.Text = "Settings";
             this.tab_settings.UseVisualStyleBackColor = true;
+            // 
+            // button_camera_settings
+            // 
+            this.button_camera_settings.Location = new System.Drawing.Point(407, 3);
+            this.button_camera_settings.Name = "button_camera_settings";
+            this.button_camera_settings.Size = new System.Drawing.Size(148, 23);
+            this.button_camera_settings.TabIndex = 4;
+            this.button_camera_settings.Text = "Open Camera Settings";
+            this.button_camera_settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button_camera_settings.UseVisualStyleBackColor = true;
+            this.button_camera_settings.Click += new System.EventHandler(this.button_camera_settings_Click);
             // 
             // AOG_CAMERAS
             // 
@@ -116,5 +164,9 @@
         private TabControl tabControl;
         private TabPage tab_camera;
         private TabPage tab_settings;
+        private Button button_cameras_start;
+        private Button button_cameras_stop;
+        private Button button_get_info;
+        private Button button_camera_settings;
     }
 }

@@ -36,20 +36,18 @@ namespace AOG_CAMERAS
                 newPlayer.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
                 newPlayer.Padding = new System.Windows.Forms.Padding(0);
 
-                //newPlayer.Size = new Size(320, 180);
-                //newPlayer.Location = new Point(camera_i * 320, 5);
-
                 //add camera stream to video player
                 newPlayer.VideoSource = cam;
 
-                //add player to UI
-                camera_divider.Controls.Add(newPlayer, camera_i, camera_i);
-                //this.Controls.Add(newPlayer);
+                //add player to UI and determine row and column
+                if (camera_i == 0) camera_divider.Controls.Add(newPlayer, 0, 0);
+                if (camera_i == 1) camera_divider.Controls.Add(newPlayer, 0, 1);
+                if (camera_i == 2) camera_divider.Controls.Add(newPlayer, 1, 0);
+                if (camera_i == 3) camera_divider.Controls.Add(newPlayer, 1, 1);
 
                 cameras.Add(cam);
                 players.Add(newPlayer);
                 camera_i++;
-
             }
 
             //start cameras
@@ -57,9 +55,6 @@ namespace AOG_CAMERAS
             {
                 camera.Start();
             }
-
-
-
         }
 
         private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -68,6 +63,47 @@ namespace AOG_CAMERAS
             Bitmap bitmap = eventArgs.Frame;
             
             // process the frame
+        }
+
+        private void button_cameras_stop_Click(object sender, EventArgs e)
+        {
+            foreach( VideoCaptureDevice camera in cameras)
+            {
+                camera.SignalToStop();
+            }
+        }
+
+        private void button_cameras_start_Click(object sender, EventArgs e)
+        {
+            foreach (VideoCaptureDevice camera in cameras)
+            {
+                camera.Start();
+            }
+        }
+
+        private void button_get_info_Click(object sender, EventArgs e)
+        {
+            foreach(VideoCaptureDevice camera in cameras)
+            {
+                int value = 0;
+                CameraControlFlags ctrlFlags = new CameraControlFlags();
+
+                // 
+                // camera.SetCameraProperty(CameraControlProperty.Tilt, 20, CameraControlFlags.Manual);
+                camera.GetCameraProperty(CameraControlProperty.Exposure, out value, out ctrlFlags);
+                Trace.WriteLine(value);
+            }
+        }
+
+        private void button_camera_settings_Click(object sender, EventArgs e)
+        {
+            foreach (VideoCaptureDevice camera in cameras)
+            {
+                // camera.DisplayPropertyPage(IntPtr.Zero);
+                // Trace.WriteLine(camera.CheckIfCrossbarAvailable()); //check if 1 line bellow is allowed to use
+                // camera.DisplayCrossbarPropertyPage(IntPtr.Zero);
+                Trace.WriteLine(camera);
+            }
         }
     }
 }
