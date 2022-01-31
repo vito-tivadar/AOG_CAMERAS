@@ -31,11 +31,11 @@
             this.camera_divider = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tab_camera = new System.Windows.Forms.TabPage();
+            this.button_camera_settings = new System.Windows.Forms.Button();
             this.button_get_info = new System.Windows.Forms.Button();
             this.button_cameras_start = new System.Windows.Forms.Button();
             this.button_cameras_stop = new System.Windows.Forms.Button();
             this.tab_settings = new System.Windows.Forms.TabPage();
-            this.button_camera_settings = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tab_camera.SuspendLayout();
             this.SuspendLayout();
@@ -45,15 +45,15 @@
             this.camera_divider.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.camera_divider.ColumnCount = 2;
+            this.camera_divider.ColumnCount = 1;
             this.camera_divider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.camera_divider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.camera_divider.Location = new System.Drawing.Point(3, 32);
             this.camera_divider.Name = "camera_divider";
-            this.camera_divider.RowCount = 2;
+            this.camera_divider.RowCount = 1;
             this.camera_divider.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.camera_divider.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.camera_divider.Size = new System.Drawing.Size(1354, 649);
+            this.camera_divider.Size = new System.Drawing.Size(1053, 791);
             this.camera_divider.TabIndex = 0;
             // 
             // tabControl
@@ -71,7 +71,7 @@
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1391, 695);
+            this.tabControl.Size = new System.Drawing.Size(1090, 837);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 1;
             // 
@@ -86,10 +86,21 @@
             this.tab_camera.Location = new System.Drawing.Point(24, 4);
             this.tab_camera.Name = "tab_camera";
             this.tab_camera.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_camera.Size = new System.Drawing.Size(1363, 687);
+            this.tab_camera.Size = new System.Drawing.Size(1062, 829);
             this.tab_camera.TabIndex = 0;
             this.tab_camera.Text = "Camera Stream";
             this.tab_camera.UseVisualStyleBackColor = true;
+            // 
+            // button_camera_settings
+            // 
+            this.button_camera_settings.Location = new System.Drawing.Point(407, 3);
+            this.button_camera_settings.Name = "button_camera_settings";
+            this.button_camera_settings.Size = new System.Drawing.Size(148, 23);
+            this.button_camera_settings.TabIndex = 4;
+            this.button_camera_settings.Text = "Open Camera Settings";
+            this.button_camera_settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button_camera_settings.UseVisualStyleBackColor = true;
+            this.button_camera_settings.Click += new System.EventHandler(this.button_camera_settings_Click);
             // 
             // button_get_info
             // 
@@ -126,32 +137,22 @@
             this.tab_settings.Location = new System.Drawing.Point(24, 4);
             this.tab_settings.Name = "tab_settings";
             this.tab_settings.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_settings.Size = new System.Drawing.Size(1363, 687);
+            this.tab_settings.Size = new System.Drawing.Size(1062, 829);
             this.tab_settings.TabIndex = 1;
             this.tab_settings.Text = "Settings";
             this.tab_settings.UseVisualStyleBackColor = true;
-            // 
-            // button_camera_settings
-            // 
-            this.button_camera_settings.Location = new System.Drawing.Point(407, 3);
-            this.button_camera_settings.Name = "button_camera_settings";
-            this.button_camera_settings.Size = new System.Drawing.Size(148, 23);
-            this.button_camera_settings.TabIndex = 4;
-            this.button_camera_settings.Text = "Open Camera Settings";
-            this.button_camera_settings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button_camera_settings.UseVisualStyleBackColor = true;
-            this.button_camera_settings.Click += new System.EventHandler(this.button_camera_settings_Click);
             // 
             // AOG_CAMERAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1388, 691);
+            this.ClientSize = new System.Drawing.Size(1087, 833);
             this.Controls.Add(this.tabControl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AOG_CAMERAS";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AOG CAMERA STREAM";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AOG_CAMERAS_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tab_camera.ResumeLayout(false);
             this.ResumeLayout(false);
