@@ -46,7 +46,7 @@ namespace AOG_CAMERAS
             InitializeComponent();
             UsbNotification.RegisterUsbDeviceNotification(this.Handle);
 
-            DetectUSBCameras(true);
+            DetectUSBCameras();
             
             if(settings.GetProfiles().Count != 0)
             { 
@@ -82,13 +82,13 @@ namespace AOG_CAMERAS
                     break;
                 
                     case UsbNotification.DbtDevicearrival:
-                            DetectUSBCameras(false);
+                            DetectUSBCameras();
                     break;
                 }
             }
         }
 
-        private void DetectUSBCameras(bool Initialize)
+        private void DetectUSBCameras()
         {
             detectedCameras.Clear();
             // detect all camera devices
@@ -109,8 +109,7 @@ namespace AOG_CAMERAS
                 detectedCameras.Add(camera);
             }
             Trace.WriteLine("detected: " + detectedCameras.Count);
-            if(Initialize) comboboxController.updateAllCameras(detectedCameras, true);
-            else comboboxController.updateAllCameras(detectedCameras, false);
+            comboboxController.updateAllCameras(detectedCameras);
         }
         #endregion
 

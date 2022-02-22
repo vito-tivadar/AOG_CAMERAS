@@ -17,51 +17,43 @@ namespace AOG_CAMERAS
     {
         private Collection<CameraSettingsPanel> cameraPanels = new Collection<CameraSettingsPanel>();
         private Collection<Camera> allCameras;
-        private Collection<Camera> avaliableCameras;
+        private Collection<Camera> unAvaliableCameras;
 
         public ComboBoxController()
         {
             allCameras = new Collection<Camera>();
-            avaliableCameras = new Collection<Camera>();
+            unAvaliableCameras = new Collection<Camera>();
         }
 
-        public void updateAllCameras(Collection<Camera> cameras, bool Initialize)
+        public void updateAllCameras(Collection<Camera> cameras)
         {
-            if (Initialize)
+            this.allCameras.Clear();
+            foreach (Camera camera in cameras)
             {
-                this.allCameras.Clear();
-                this.avaliableCameras.Clear();
-
-                foreach (Camera camera in cameras)
-                {
-                    allCameras.Add(camera);
-                    avaliableCameras.Add(camera);
-                }
-            }
-            else
-            {
-                this.allCameras.Clear();
-                foreach (Camera camera in cameras)
-                {
-                    allCameras.Add(camera);
-                }
+                allCameras.Add(camera);
             }
         }
 
         private void updateAvaliableCameras(Collection<Camera> cameras)
         {
-            this.avaliableCameras.Clear();
-            this.avaliableCameras = cameras;
+            this.unAvaliableCameras.Clear();
+            this.unAvaliableCameras = cameras;
         }
 
         public void updateComboxList(object sender, EventArgs e)
         {
             ComboBox combobox = sender as ComboBox;
             UpdateCurrentlyUsedCameras(combobox);
-            combobox.Items.Clear();
-            foreach (Camera camera in avaliableCameras)
+            foreach (var item in combobox.Items)
             {
-                combobox.Items.Add(camera.name);
+                if(item.ToString() != combobox.Text ) combobox.Items.Remove(item);
+            }
+
+            if (combobox.Items.Count > 1) combobox.Items.RemoveAt(1); 
+
+            foreach (Camera camera in allCameras)
+            {
+                if(!unAvaliableCameras.Contains(camera)) combobox.Items.Add(camera.name);
             }
         }
 
@@ -88,15 +80,14 @@ namespace AOG_CAMERAS
 
         public void UpdateCurrentlyUsedCameras(ComboBox combobox)
         {
-            Trace.WriteLine("allCameras 1: " + allCameras.Count + "    " + "avaliableCameras 1: " + avaliableCameras.Count);
-            avaliableCameras.Clear();
+            unAvaliableCameras.Clear();
             foreach (CameraSettingsPanel panel in cameraPanels)
             {
                 ComboBox cb = panel.GetCombobox() as ComboBox;
 
                 foreach(Camera camera in allCameras)
                 {
-                    if(camera.name != cb.Text && !avaliableCameras.Contains(camera)) avaliableCameras.Add(camera);
+                    if(camera.name == cb.Text && !unAvaliableCameras.Contains(camera)) unAvaliableCameras.Add(camera);
                 }
             }
 
