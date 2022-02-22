@@ -29,24 +29,12 @@ namespace AOG_CAMERAS.UserControls
 
         #endregion
 
-        internal CameraSettingsPanel(Collection<Camera> camerasCollection, ComboBoxController controller)
+        internal CameraSettingsPanel(ComboBoxController controller)
         {
-            this.camerasCollection = camerasCollection; 
             this.controller = controller;
             InitializeComponent();
-            cameraCollectionToCombobox(this.camerasCollection);
-        }
 
-
-
-        
-
-        private void cameraCollectionToCombobox(Collection<Camera> camerasCollection)
-        {
-            foreach(Camera camera in camerasCollection)
-            {
-                cameraSelectDropdown.Items.Add(camera.name);
-            }
+            controller.AddCameraSettingsPanel(this);
         }
 
         private void previewCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -69,6 +57,11 @@ namespace AOG_CAMERAS.UserControls
                 }
             }
             else if(videoSourcePlayer.VideoSource != null) this.currentCamera.SignalToStop();
+        }
+
+        public ComboBox GetCombobox()
+        {
+            return cameraSelectDropdown;
         }
 
         private void expandHorizontally_button_Click(object sender, EventArgs e)

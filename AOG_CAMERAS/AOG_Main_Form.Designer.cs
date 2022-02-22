@@ -127,6 +127,7 @@
             // 
             // deleteProfile_button
             // 
+            this.deleteProfile_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.deleteProfile_button.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.deleteProfile_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteProfile_button.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -137,7 +138,6 @@
             this.deleteProfile_button.TabIndex = 6;
             this.deleteProfile_button.Text = "Delete Profile";
             this.deleteProfile_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.deleteProfile_button.Click += new System.EventHandler(this.deleteProfile_button_Click);
             // 
             // camerasPanelSettings
             // 
@@ -190,7 +190,6 @@
             this.tabControl.CausesValidation = false;
             this.tabControl.Controls.Add(this.tab_camera);
             this.tabControl.Controls.Add(this.tab_settings);
-            this.tabControl.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl.HotTrack = true;
             this.tabControl.ImeMode = System.Windows.Forms.ImeMode.Off;

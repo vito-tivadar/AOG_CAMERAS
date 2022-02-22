@@ -46,7 +46,7 @@ namespace AOG_CAMERAS
             InitializeComponent();
             UsbNotification.RegisterUsbDeviceNotification(this.Handle);
 
-            DetectUSBCameras();
+            DetectUSBCameras(true);
             
             if(settings.GetProfiles().Count != 0)
             { 
@@ -55,6 +55,8 @@ namespace AOG_CAMERAS
                     profileDropDownMenu.Items.Add(profile.name);
                 }
             }
+
+            tabControl.SelectTab(1);
 
             #region TEST CODE
 
@@ -65,6 +67,7 @@ namespace AOG_CAMERAS
 
             #endregion
         }
+
         #region methods
         // detect if device was added or removed
         protected override void WndProc(ref Message m)
@@ -79,13 +82,13 @@ namespace AOG_CAMERAS
                     break;
                 
                     case UsbNotification.DbtDevicearrival:
-                            DetectUSBCameras();
+                            DetectUSBCameras(false);
                     break;
                 }
             }
         }
 
-        private void DetectUSBCameras()
+        private void DetectUSBCameras(bool Initialize)
         {
             detectedCameras.Clear();
             // detect all camera devices
@@ -105,8 +108,9 @@ namespace AOG_CAMERAS
 
                 detectedCameras.Add(camera);
             }
-
-            comboboxController.updateAllCameras(detectedCameras);
+            Trace.WriteLine("detected: " + detectedCameras.Count);
+            if(Initialize) comboboxController.updateAllCameras(detectedCameras, true);
+            else comboboxController.updateAllCameras(detectedCameras, false);
         }
         #endregion
 
@@ -174,16 +178,12 @@ namespace AOG_CAMERAS
             settings.Save();
         }
 
-        private void deleteProfile_button_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void addCamera_button_Click(object sender, EventArgs e)
         {
-            CameraSettingsPanel panel = new CameraSettingsPanel(detectedCameras, comboboxController);
+            CameraSettingsPanel panel = new CameraSettingsPanel(comboboxController);
             panel.Dock = DockStyle.Fill;
             if(camerasPanelSettings.Controls.Count <= 4) camerasPanelSettings.Controls.Add(panel);
+            //comboboxController.AddCameraSettingsPanel(panel);
             //camerasPanelSettings.SetRowSpan(panel, 2);
 
             //camerasPanelSettings.SetRowSpan()

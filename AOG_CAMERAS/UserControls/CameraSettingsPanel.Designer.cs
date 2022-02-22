@@ -54,6 +54,7 @@
             // 
             this.cameraSelectDropdown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cameraSelectDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cameraSelectDropdown.FormattingEnabled = true;
             this.cameraSelectDropdown.Location = new System.Drawing.Point(3, 3);
             this.cameraSelectDropdown.MinimumSize = new System.Drawing.Size(325, 0);
@@ -61,6 +62,7 @@
             this.cameraSelectDropdown.Size = new System.Drawing.Size(325, 29);
             this.cameraSelectDropdown.TabIndex = 2;
             this.cameraSelectDropdown.SelectedIndexChanged += new System.EventHandler(this.controller.onComboboxUpdated);
+            this.cameraSelectDropdown.Enter += new System.EventHandler(this.controller.updateComboxList);
             // 
             // videoSourcePlayer
             // 
