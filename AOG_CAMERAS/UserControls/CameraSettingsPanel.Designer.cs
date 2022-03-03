@@ -28,114 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.previewCheckbox = new System.Windows.Forms.CheckBox();
-            this.cameraSelectDropdown = new System.Windows.Forms.ComboBox();
+            this.remove_button = new System.Windows.Forms.Button();
+            this.cameraName_label = new System.Windows.Forms.Label();
+            this.expandHorizontally_button = new System.Windows.Forms.Button();
+            this.expandVertically_button = new System.Windows.Forms.Button();
             this.videoSourcePlayer = new AForge.Controls.VideoSourcePlayer();
-            this.expandHorizontally_button = new System.Windows.Forms.Label();
-            this.expandVertically_button = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // previewCheckbox
+            // remove_button
             // 
-            this.previewCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.previewCheckbox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.previewCheckbox.Location = new System.Drawing.Point(334, 3);
-            this.previewCheckbox.Name = "previewCheckbox";
-            this.previewCheckbox.Size = new System.Drawing.Size(104, 30);
-            this.previewCheckbox.TabIndex = 0;
-            this.previewCheckbox.Text = "Preview";
-            this.previewCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.previewCheckbox.UseVisualStyleBackColor = true;
-            this.previewCheckbox.CheckedChanged += new System.EventHandler(this.previewCheckbox_CheckedChanged);
+            this.remove_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.remove_button.Location = new System.Drawing.Point(369, 3);
+            this.remove_button.Name = "remove_button";
+            this.remove_button.Size = new System.Drawing.Size(84, 32);
+            this.remove_button.TabIndex = 0;
+            this.remove_button.Text = "REMOVE";
+            this.remove_button.UseVisualStyleBackColor = true;
             // 
-            // cameraSelectDropdown
+            // cameraName_label
             // 
-            this.cameraSelectDropdown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cameraSelectDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cameraSelectDropdown.FormattingEnabled = true;
-            this.cameraSelectDropdown.Location = new System.Drawing.Point(3, 3);
-            this.cameraSelectDropdown.MinimumSize = new System.Drawing.Size(325, 0);
-            this.cameraSelectDropdown.Name = "cameraSelectDropdown";
-            this.cameraSelectDropdown.Size = new System.Drawing.Size(325, 29);
-            this.cameraSelectDropdown.TabIndex = 2;
-            this.cameraSelectDropdown.SelectedIndexChanged += new System.EventHandler(this.controller.onComboboxUpdated);
-            this.cameraSelectDropdown.Enter += new System.EventHandler(this.controller.updateComboxList);
-            // 
-            // videoSourcePlayer
-            // 
-            this.videoSourcePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.videoSourcePlayer.Location = new System.Drawing.Point(3, 82);
-            this.videoSourcePlayer.MinimumSize = new System.Drawing.Size(0, 200);
-            this.videoSourcePlayer.Name = "videoSourcePlayer";
-            this.videoSourcePlayer.Size = new System.Drawing.Size(435, 200);
-            this.videoSourcePlayer.TabIndex = 1;
-            this.videoSourcePlayer.VideoSource = null;
+            this.cameraName_label.AutoSize = true;
+            this.cameraName_label.Location = new System.Drawing.Point(3, 3);
+            this.cameraName_label.Name = "cameraName_label";
+            this.cameraName_label.Size = new System.Drawing.Size(104, 21);
+            this.cameraName_label.TabIndex = 1;
+            this.cameraName_label.Text = "camera name";
             // 
             // expandHorizontally_button
             // 
-            this.expandHorizontally_button.BackColor = System.Drawing.SystemColors.Control;
-            this.expandHorizontally_button.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.expandHorizontally_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.expandHorizontally_button.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.expandHorizontally_button.Location = new System.Drawing.Point(3, 0);
+            this.expandHorizontally_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.expandHorizontally_button.Location = new System.Drawing.Point(258, 227);
             this.expandHorizontally_button.Name = "expandHorizontally_button";
-            this.expandHorizontally_button.Size = new System.Drawing.Size(211, 38);
-            this.expandHorizontally_button.TabIndex = 5;
-            this.expandHorizontally_button.Text = "Expand horizontally";
-            this.expandHorizontally_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.expandHorizontally_button.Click += new System.EventHandler(this.expandHorizontally_button_Click);
+            this.expandHorizontally_button.Size = new System.Drawing.Size(195, 30);
+            this.expandHorizontally_button.TabIndex = 2;
+            this.expandHorizontally_button.Text = "EXPAND HOTIZONTALLY";
+            this.expandHorizontally_button.UseVisualStyleBackColor = true;
+            this.expandHorizontally_button.Click += new System.EventHandler(this.controller.expandHorizontally_button_Click);
             // 
             // expandVertically_button
             // 
-            this.expandVertically_button.BackColor = System.Drawing.SystemColors.Control;
-            this.expandVertically_button.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.expandVertically_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.expandVertically_button.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.expandVertically_button.Location = new System.Drawing.Point(220, 0);
+            this.expandVertically_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.expandVertically_button.Location = new System.Drawing.Point(3, 227);
             this.expandVertically_button.Name = "expandVertically_button";
-            this.expandVertically_button.Size = new System.Drawing.Size(212, 38);
-            this.expandVertically_button.TabIndex = 6;
-            this.expandVertically_button.Text = "Expand vertically";
-            this.expandVertically_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.expandVertically_button.Click += new System.EventHandler(this.expandVertically_button_Click);
+            this.expandVertically_button.Size = new System.Drawing.Size(195, 30);
+            this.expandVertically_button.TabIndex = 3;
+            this.expandVertically_button.Text = "EXPAND VERTICALLY";
+            this.expandVertically_button.UseVisualStyleBackColor = true;
+            this.expandVertically_button.Click += new System.EventHandler(this.controller.expandVertically_button_Click);
             // 
-            // tableLayoutPanel1
+            // videoSourcePlayer
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.expandHorizontally_button, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.expandVertically_button, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 38);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 38);
-            this.tableLayoutPanel1.TabIndex = 7;
+            this.videoSourcePlayer.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.videoSourcePlayer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.videoSourcePlayer.Location = new System.Drawing.Point(0, 0);
+            this.videoSourcePlayer.Name = "videoSourcePlayer";
+            this.videoSourcePlayer.Size = new System.Drawing.Size(456, 260);
+            this.videoSourcePlayer.TabIndex = 5;
+            this.videoSourcePlayer.Text = "videoSourcePlayer1";
+            this.videoSourcePlayer.VideoSource = null;
             // 
             // CameraSettingsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.cameraSelectDropdown);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.expandVertically_button);
+            this.Controls.Add(this.expandHorizontally_button);
+            this.Controls.Add(this.cameraName_label);
+            this.Controls.Add(this.remove_button);
             this.Controls.Add(this.videoSourcePlayer);
-            this.Controls.Add(this.previewCheckbox);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(0);
+            this.MinimumSize = new System.Drawing.Size(450, 260);
             this.Name = "CameraSettingsPanel";
-            this.Size = new System.Drawing.Size(441, 284);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(456, 260);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,11 +110,10 @@
 
         #endregion
 
-        private CheckBox previewCheckbox;
-        private ComboBox cameraSelectDropdown;
+        private Button remove_button;
+        private Label cameraName_label;
+        private Button expandHorizontally_button;
+        private Button expandVertically_button;
         private AForge.Controls.VideoSourcePlayer videoSourcePlayer;
-        private Label expandHorizontally_button;
-        private Label expandVertically_button;
-        private TableLayoutPanel tableLayoutPanel1;
     }
 }

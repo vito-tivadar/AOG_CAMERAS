@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using AForge.Video.DirectShow;
+using AForge.Controls;
 
 
 namespace AOG_CAMERAS.UserControls
@@ -20,58 +21,48 @@ namespace AOG_CAMERAS.UserControls
     {
         #region getter and setter
 
-        private string title;
-        private string camera;
         private bool preview = false;
         private Collection<Camera> camerasCollection = new Collection<Camera>();
-        private VideoCaptureDevice? currentCamera = null;
-        private ComboBoxController controller;
+        internal Camera camera;
+        internal string selectedCameraName = "";
+        internal VideoCaptureDevice? currentCamera = null;
+        private CamerasController controller;
 
         #endregion
 
-        internal CameraSettingsPanel(ComboBoxController controller)
+        internal CameraSettingsPanel(CamerasController controller, Camera camera)
         {
             this.controller = controller;
+            this.camera = camera;
+            this.currentCamera = camera.cameraObject;
+
+            controller.AddToUnavaliableCameras(this.camera.name);
+
             InitializeComponent();
+            
+            cameraName_label.Text = this.camera.name;
+            videoSourcePlayer.VideoSource = this.currentCamera;
+            videoSourcePlayer.Start();
+            this.currentCamera.Start();
+            EnableOverlay(controller.overlayEnabled);
+
 
             controller.AddCameraSettingsPanel(this);
         }
 
-        private void previewCheckbox_CheckedChanged(object sender, EventArgs e)
+        public void EnableOverlay(bool isEnabled)
         {
-            this.preview = previewCheckbox.Checked;
-            this.Focus();
-
-            if (preview)
+            Collection<Control> controls = new Collection<Control>() { cameraName_label, expandHorizontally_button, expandVertically_button, remove_button };
+            foreach (Control control in controls)
             {
-                foreach(Camera camera in this.camerasCollection)
-                {
-                    if(camera.name == cameraSelectDropdown.Text)
-                    {
-                        this.currentCamera = camera.cameraObject;
-                        videoSourcePlayer.VideoSource = this.currentCamera;
-                        if ( !this.currentCamera.IsRunning ) this.currentCamera.Start();
-
-                        //cameraSelectDropdown.Items.Remove(camera.name);
-                    }
-                }
+                if(isEnabled) control.Show();
+                else control.Hide();
             }
-            else if(videoSourcePlayer.VideoSource != null) this.currentCamera.SignalToStop();
         }
-
-        public ComboBox GetCombobox()
+        
+        public VideoSourcePlayer GetVideoSourcePlayer()
         {
-            return cameraSelectDropdown;
-        }
-
-        private void expandHorizontally_button_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void expandVertically_button_Click(object sender, EventArgs e)
-        {
-
+            return this.videoSourcePlayer;
         }
     }
 }

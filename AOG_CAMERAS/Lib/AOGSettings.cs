@@ -229,17 +229,5 @@ namespace AOG_CAMERAS
             this.height = height;
             this.width = width;
         }
-
-        //public VideoCaptureDevice CameraFromMonkierString()
-        //{
-        //    VideoCaptureDevice camera = new VideoCaptureDevice(this.cameraObject);
-        //    camera.NewFrame += new NewFrameEventHandler((object sender, NewFrameEventArgs eventArgs) => {
-        //        Bitmap bitmap = eventArgs.Frame;
-        //        // process the frame (add filters...) 
-
-        //    });
-
-        //    return camera;
-        //}
     }
 }

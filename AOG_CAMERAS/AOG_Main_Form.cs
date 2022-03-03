@@ -23,7 +23,7 @@ namespace AOG_CAMERAS
     {
         // create settings object
         AOGSettings settings = new AOGSettings(Path.GetFullPath("settings"), "settings.json");
-        ComboBoxController comboboxController = new ComboBoxController();
+        CamerasController camerasController = new CamerasController();
 
         // struct needed for detecting usb devices
         private struct DEV_BROADCAST_HDR
@@ -47,16 +47,17 @@ namespace AOG_CAMERAS
             UsbNotification.RegisterUsbDeviceNotification(this.Handle);
 
             DetectUSBCameras();
-            
-            if(settings.GetProfiles().Count != 0)
+
+            camerasController.SetCamerasTableLayoutPanel(camerasGridPanel);
+
+            if (settings.GetProfiles().Count != 0)
             { 
                 foreach(Profile profile in settings.GetProfiles())
                 {
                     profileDropDownMenu.Items.Add(profile.name);
                 }
             }
-
-            tabControl.SelectTab(1);
+            if (cameraSelectCombobox.Text == string.Empty) addCamera_button.Enabled = false;
 
             #region TEST CODE
 
@@ -78,11 +79,12 @@ namespace AOG_CAMERAS
                 switch ((int)m.WParam)
                 {
                     case UsbNotification.DbtDeviceremovecomplete:
+                        DetectUSBCameras();
                         //Trace.WriteLine("Device removed!");
                     break;
                 
                     case UsbNotification.DbtDevicearrival:
-                            DetectUSBCameras();
+                        DetectUSBCameras();
                     break;
                 }
             }
@@ -90,26 +92,47 @@ namespace AOG_CAMERAS
 
         private void DetectUSBCameras()
         {
-            detectedCameras.Clear();
-            // detect all camera devices
+            Thread.Sleep(500);
+            
+            Collection<string> newCameras = new Collection<string>();
+            Collection<Camera> camerasForRemoval = new Collection<Camera>();
+
             FilterInfoCollection ScannedCameras = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo cameraDevice in ScannedCameras)
             {
-                VideoCaptureDevice cam = new VideoCaptureDevice(cameraDevice.MonikerString);
                 string camName = cameraDevice.Name; // get camera name
-                cam.NewFrame += new NewFrameEventHandler((object sender, NewFrameEventArgs eventArgs) =>
+                if (!detectedCameras.Any(c => c.name == camName))
                 {
-                    Bitmap bitmap = eventArgs.Frame;
-                    // process the frame (add filters...) 
+                    VideoCaptureDevice cam = new VideoCaptureDevice(cameraDevice.MonikerString);
+                    cam.NewFrame += new NewFrameEventHandler((object sender, NewFrameEventArgs eventArgs) =>
+                    {
+                        Bitmap bitmap = eventArgs.Frame;
+                        // process the frame (add filters...) 
 
-                });
-                // Trace.WriteLine(JsonConvert.SerializeObject(cam));
-                Camera camera = new Camera(camName, cam);
+                    });
+                    Camera camera = new Camera(camName, cam);
 
-                detectedCameras.Add(camera);
+                    detectedCameras.Add(camera);
+                }
+                newCameras.Add(camName);
             }
-            Trace.WriteLine("detected: " + detectedCameras.Count);
-            comboboxController.updateAllCameras(detectedCameras);
+
+            // update combobox 
+            cameraSelectCombobox.Items.Clear();
+            foreach (Camera camera in detectedCameras)
+            {
+                if (newCameras.Contains(camera.name)) cameraSelectCombobox.Items.Add(camera.name);
+                else camerasForRemoval.Add(camera);
+            }
+
+            foreach(Camera camera in camerasForRemoval)
+            {
+                detectedCameras.Remove(camera);
+                IDisposable disposable = camera as IDisposable;
+                if (disposable != null) disposable.Dispose();
+            }
+
+            camerasController.updateAllCameras(detectedCameras);
         }
         #endregion
 
@@ -123,7 +146,10 @@ namespace AOG_CAMERAS
         // RUN ON APP EXIT
         private void AOG_CAMERAS_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            foreach(Camera camera in detectedCameras)
+            {
+                camera.cameraObject.SignalToStop();
+            }
         }
 
         // RUN ON FOCUS GET
@@ -140,10 +166,6 @@ namespace AOG_CAMERAS
 
         private void addProfile_button_Click(object sender, EventArgs e)
         {
-            tabControl.SelectedTab = tab_settings;
-
-            if (tabControl.Visible == false) tabControl.Show();
-
             int profile_count = settings.GetProfiles().Count + 1;
             string profile_name = "New Profile(" + profile_count.ToString() + ")";
 
@@ -179,9 +201,9 @@ namespace AOG_CAMERAS
 
         private void addCamera_button_Click(object sender, EventArgs e)
         {
-            CameraSettingsPanel panel = new CameraSettingsPanel(comboboxController);
+            CameraSettingsPanel panel = new CameraSettingsPanel(camerasController, detectedCameras.First(c => c.name == cameraSelectCombobox.Text));
             panel.Dock = DockStyle.Fill;
-            if(camerasPanelSettings.Controls.Count <= 4) camerasPanelSettings.Controls.Add(panel);
+            if(camerasGridPanel.Controls.Count <= 4) camerasGridPanel.Controls.Add(panel);
             //comboboxController.AddCameraSettingsPanel(panel);
             //camerasPanelSettings.SetRowSpan(panel, 2);
 
@@ -192,7 +214,17 @@ namespace AOG_CAMERAS
 
         private void camerasPanelSettings_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (camerasPanelSettings.Controls.Count == 4) addCamera_button.Enabled = false;
+            if (camerasGridPanel.Controls.Count == 4) addCamera_button.Enabled = false;
+        }
+
+        private void cameraSelectCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cameraSelectCombobox.Text != string.Empty) addCamera_button.Enabled = true;
+        }
+
+        private void combineVertically_button_Click(object sender, EventArgs e)
+        {
+            camerasController.ToggleOverlay();
         }
     }
 }

@@ -17,6 +17,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Forms\**" />
+    <EmbeddedResource Remove="Forms\**" />
+    <None Remove="Forms\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="AOG_ICON.ico" />
   </ItemGroup>
 
@@ -42,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Forms\" />
+    <Folder Include="resources\" />
   </ItemGroup>
 
 </Project>
